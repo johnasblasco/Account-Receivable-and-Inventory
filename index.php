@@ -109,14 +109,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
 
                 <div class="bg-white shadow-md rounded-lg p-4 flex-grow">
-                    <h3 class="text-lg font-semibold">Orders</h3>
+                    <h3 class="text-lg font-semibold">Invoice System</h3>
                     <p class="text-gray-600 mb-4">Manage your orders seamlessly.</p>
                     <div class="space-y-2">
-                        <a href="newOrder.php" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition inline-block">
-                            <i class="fas fa-plus"></i> New Order
+                        <a href="createInvoice.php" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition inline-block">
+                            <i class="fas fa-plus"></i> New Invoice
                         </a>
-                        <a href="manageOrder.php" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition inline-block">
-                            <i class="fas fa-magic"></i> Manage Order
+                        <a href="manageInvoice.php" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition inline-block">
+                            <i class="fas fa-magic"></i> Invoice Details
                         </a>
                     </div>
                 </div>
@@ -128,47 +128,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Category, Brand, and Product Sections -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Category Card -->
-        <div class="bg-white shadow-lg rounded-lg p-6">
-            <h3 class="text-lg font-semibold">Category</h3>
-            <p class="text-gray-600 mt-2">Manage your product categories efficiently.</p>
-            <div class="mt-4 space-y-2">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition" data-toggle="modal" data-target="#categoryModal">
-                    <i class="fas fa-plus"></i> Add Category
-                </button>
-                <a href="managecategory.php" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition inline-block">
-                    Manage Category
-                </a>
-            </div>
-        </div>
 
-        <!-- Brand Card -->
-        <div class="bg-white shadow-lg rounded-lg p-6">
-            <h3 class="text-lg font-semibold">Brand</h3>
-            <p class="text-gray-600 mt-2">Manage product brands seamlessly.</p>
-            <div class="mt-4 space-y-2">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition" data-toggle="modal" data-target="#brandModal">
-                    <i class="fas fa-plus"></i> Add Brand
-                </button>
-                <a href="manageBrand.php" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition inline-block">
-                    Manage Brand
-                </a>
+    <!-- Invoice Management Card -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                  <h3 class="text-lg font-semibold">Product Management</h3>
+                  <p class="text-gray-600 mt-2">Create and manage Product easily.</p>
+                  <div class="mt-4 space-y-2">
+                        
+                        <a href="manageProducts.php" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition inline-block">
+                        <i class="fas fa-cogs"></i> Manage Products
+                        </a>
+                  </div>
             </div>
-        </div>
 
-        <!-- Product Card -->
-        <div class="bg-white shadow-lg rounded-lg p-6">
-            <h3 class="text-lg font-semibold">Product</h3>
-            <p class="text-gray-600 mt-2">Manage your products effectively.</p>
-            <div class="mt-4 space-y-2">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition" data-toggle="modal" data-target="#productModal">
-                    <i class="fas fa-plus"></i> Add Product
-                </button>
-                <a href="manageProduct.php" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition inline-block">
-                    Manage Product
-                </a>
+        
+            <!-- Financial Reporting Card -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                  <h3 class="text-lg font-semibold">Financial Reporting</h3>
+                  <p class="text-gray-600 mt-2">View and manage your financial reports.</p>
+                  <div class="mt-4 space-y-2">
+                        <a href="financialReporting.php" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition inline-block">
+                        <i class="fas fa-chart-line"></i> View Reports
+                        </a>
+                        <a href="generateReport.php" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition inline-block">
+                        <i class="fas fa-plus"></i> Generate Report
+                        </a>
+                  </div>
             </div>
-        </div>
+
+
+            <!-- Payment Tracking Card -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                  <h3 class="text-lg font-semibold">Payment Tracking</h3>
+                  <p class="text-gray-600 mt-2">Track and manage payments effectively.</p>
+                  <div class="mt-4 space-y-2">
+                        <a href="trackPayment.php" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition inline-block">
+                        <i class="fas fa-credit-card"></i> Track Payments
+                        </a>
+                        <a href="managePayments.php" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition inline-block">
+                        <i class="fas fa-cogs"></i> Manage Payments
+                        </a>
+                  </div>
+            </div>
+            
+
     </div>
 </div>
 

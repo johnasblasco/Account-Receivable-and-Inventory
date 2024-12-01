@@ -17,8 +17,13 @@ define("DOMAIN","http://localhost/inventory");
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.semanticui.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.semanticui.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Inventory Management System</title>
+    <title>Barra_Jhomar_Account_Receivable</title>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script src="js/main.js"></script>
 
    

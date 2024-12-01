@@ -5,7 +5,7 @@
     <div class="max-w-4xl mx-auto">
         <div class="bg-white shadow-md rounded-lg">
             <div class="bg-blue-600 text-white p-4 rounded-t-lg">
-                <h2 class="text-2xl font-semibold">New Order</h2>
+                <h2 class="text-2xl font-semibold">Create Invoice For Members</h2>
             </div>
             <div class="p-6">
                 <form id="get_order_data" onsubmit="return false">
@@ -104,7 +104,7 @@
                     <!-- Buttons -->
                     <div class="flex justify-center gap-4 mt-6">
                         <button id="order_form" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                            Order
+                            Make Invoice
                         </button>
                         <button id="print_invoice" class="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 hidden">
                             Print Invoice
@@ -115,4 +115,5 @@
         </div>
     </div>
 </div>
+<?php require_once 'templates/footer.php' ?>
 <?php require_once 'templates/footer.php' ?>

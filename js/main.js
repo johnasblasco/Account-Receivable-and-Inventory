@@ -1,5 +1,71 @@
 $(document).ready(function () {
+      document.addEventListener('DOMContentLoaded', function () {
+            // Add event listener to the "Make Invoice" button
+            document.getElementById('order_form').addEventListener('click', function () {
+                // Get the order data from the form (replace with actual form data collection)
+                const data = {
+                    order_date: document.getElementById('order_date').value,
+                    cust_name: document.getElementById('cust_name').value,
+                    // Add other fields here as needed
+                    sub_total: document.getElementById('sub_total').value,
+                    gst: document.getElementById('gst').value,
+                    discount: document.getElementById('discount').value,
+                    net_total: document.getElementById('net_total').value,
+                    paid: document.getElementById('paid').value,
+                    due: document.getElementById('due').value,
+                    payment_type: document.getElementById('payment_type').value,
+                };
+        
+                // Call the function to send data
+                sendInvoiceData(data);
+            });
+        
+            // Handle the Print Invoice button click
+            document.getElementById('print_invoice').addEventListener('click', function () {
+                  // Ensure the button is visible and not hidden
+                  if (!this.classList.contains('hidden')) {
+                      window.print();  // This triggers the print dialog
+                  } else {
+                      console.log('Print button is hidden. Cannot trigger print.');
+                  }
+              });
+              document.getElementById('print_invoice').addEventListener('click', function () {
+                window.print();
+            });
+        
+            function sendInvoiceData(data) {
+                fetch('process_invoice.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then((response) => {
+                    // Log the raw response to check if it's valid JSON
+                    console.log('Raw response:', response);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json(); // Try parsing the JSON
+                })
+                .then((result) => {
+                    console.log('Parsed result:', result); // Log the parsed result
+                    if (result.success) {
+                        alert('Invoice created successfully!');
+                        document.getElementById('print_invoice').classList.remove('hidden');
+                    } else {
+                        alert('Failed to create invoice. Please try again.');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred while processing your request. Please try again.');
+                });
+            }
+        });
 
+        
 
 
 

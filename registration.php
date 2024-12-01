@@ -31,7 +31,7 @@
                     <select name="usertype" class="form-control" id="usertype">
                         <option value="">Choose User Type</option>
                         <option value="Admin">Admin</option>
-                        <option value="Other">Other</option>
+                        <option value="Other">Member</option>
                     </select>
                     <small id="t_error" class="form-text text-muted"></small>
                 </div>
