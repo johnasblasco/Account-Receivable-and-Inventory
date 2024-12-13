@@ -62,33 +62,33 @@ require_once 'templates/navbar.php';
                 <?php
                 // Demo data to simulate payments
                 $payments = [
-                    [
+                  [
                         'invoice_no' => 'INV001',
-                        'customer_name' => 'John Doe',
+                        'customer_name' => 'James Reid',
                         'payment_date' => '2024-11-01',
-                        'amount_paid' => 200.00,
-                        'due_amount' => 50.00
+                        'amount_paid' => 382.13,
+                        'due_amount' => 23
                     ],
                     [
                         'invoice_no' => 'INV002',
-                        'customer_name' => 'Jane Smith',
+                        'customer_name' => 'Kenneth',
                         'payment_date' => '2024-11-05',
-                        'amount_paid' => 300.00,
+                        'amount_paid' => 151.04,
                         'due_amount' => 0.00
                     ],
                     [
                         'invoice_no' => 'INV003',
-                        'customer_name' => 'Alice Johnson',
+                        'customer_name' => 'Kasha',
                         'payment_date' => '2024-11-10',
-                        'amount_paid' => 150.00,
-                        'due_amount' => 100.00
+                        'amount_paid' => 135.04,
+                        'due_amount' => 0
                     ],
                     [
                         'invoice_no' => 'INV004',
-                        'customer_name' => 'Bob Lee',
+                        'customer_name' => 'Jhomar Barra',
                         'payment_date' => '2024-11-15',
-                        'amount_paid' => 500.00,
-                        'due_amount' => 200.00
+                        'amount_paid' => 709,
+                        'due_amount' => 0
                     ],
                 ];
 
@@ -170,6 +170,68 @@ require_once 'templates/navbar.php';
     function deletePayment(index) {
         console.log('Deleting payment:', index);
     }
+    function deletePayment(index) {
+    const paymentList = document.getElementById('paymentsList');
+    const rowToDelete = paymentList.rows[index - 1]; // Rows are 0-indexed
+    if (rowToDelete) {
+        if (confirm("Are you sure you want to delete this payment?")) {
+            paymentList.deleteRow(index - 1);
+            updateRowNumbers(); // Update row numbers after deletion
+        }
+    }
+}
+
+// Update row numbers dynamically
+function updateRowNumbers() {
+    const rows = document.querySelectorAll('#paymentsList tr');
+    rows.forEach((row, index) => {
+        row.children[0].textContent = index + 1; // Update the first cell with the new row number
+        const editButton = row.querySelector('button.text-blue-600');
+        const deleteButton = row.querySelector('button.text-red-600');
+        editButton.setAttribute('onclick', `editPayment(${index + 1})`);
+        deleteButton.setAttribute('onclick', `deletePayment(${index + 1})`);
+    });
+}
+
+// Edit Payment
+function editPayment(index) {
+    const paymentList = document.getElementById('paymentsList');
+    const rowToEdit = paymentList.rows[index - 1]; // Rows are 0-indexed
+    if (rowToEdit) {
+        // Populate the form with the data from the selected row
+        document.getElementById('invoiceNo').value = rowToEdit.cells[1].textContent;
+        document.getElementById('customerName').value = rowToEdit.cells[2].textContent;
+        document.getElementById('paymentDate').value = rowToEdit.cells[3].textContent;
+        document.getElementById('amountPaid').value = parseFloat(rowToEdit.cells[4].textContent.slice(1)); // Remove '$'
+        document.getElementById('dueAmount').value = parseFloat(rowToEdit.cells[5].textContent.slice(1)); // Remove '$'
+
+        // Listen for form submission to update the row
+        document.getElementById('addPaymentForm').onsubmit = function (event) {
+            event.preventDefault();
+
+            // Update the row with new data
+            rowToEdit.cells[1].textContent = document.getElementById('invoiceNo').value;
+            rowToEdit.cells[2].textContent = document.getElementById('customerName').value;
+            rowToEdit.cells[3].textContent = document.getElementById('paymentDate').value;
+            rowToEdit.cells[4].textContent = `$${parseFloat(document.getElementById('amountPaid').value).toFixed(2)}`;
+            rowToEdit.cells[5].textContent = `$${parseFloat(document.getElementById('dueAmount').value).toFixed(2)}`;
+
+            // Reset the form
+            document.getElementById('addPaymentForm').reset();
+
+            // Restore the default form submission behavior
+            document.getElementById('addPaymentForm').onsubmit = addPayment;
+
+            // Show success alert
+            const alertBox = document.getElementById('successAlert');
+            alertBox.classList.remove('hidden');
+            setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 3000);
+        };
+    }
+}
+
 </script>
 
 <?php require_once 'templates/footer.php'; ?>

@@ -1,74 +1,3 @@
-$(document).ready(function () {
-      document.addEventListener('DOMContentLoaded', function () {
-            // Add event listener to the "Make Invoice" button
-            document.getElementById('order_form').addEventListener('click', function () {
-                // Get the order data from the form (replace with actual form data collection)
-                const data = {
-                    order_date: document.getElementById('order_date').value,
-                    cust_name: document.getElementById('cust_name').value,
-                    // Add other fields here as needed
-                    sub_total: document.getElementById('sub_total').value,
-                    gst: document.getElementById('gst').value,
-                    discount: document.getElementById('discount').value,
-                    net_total: document.getElementById('net_total').value,
-                    paid: document.getElementById('paid').value,
-                    due: document.getElementById('due').value,
-                    payment_type: document.getElementById('payment_type').value,
-                };
-        
-                // Call the function to send data
-                sendInvoiceData(data);
-            });
-        
-            // Handle the Print Invoice button click
-            document.getElementById('print_invoice').addEventListener('click', function () {
-                  // Ensure the button is visible and not hidden
-                  if (!this.classList.contains('hidden')) {
-                      window.print();  // This triggers the print dialog
-                  } else {
-                      console.log('Print button is hidden. Cannot trigger print.');
-                  }
-              });
-              document.getElementById('print_invoice').addEventListener('click', function () {
-                window.print();
-            });
-        
-            function sendInvoiceData(data) {
-                fetch('process_invoice.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                })
-                .then((response) => {
-                    // Log the raw response to check if it's valid JSON
-                    console.log('Raw response:', response);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json(); // Try parsing the JSON
-                })
-                .then((result) => {
-                    console.log('Parsed result:', result); // Log the parsed result
-                    if (result.success) {
-                        alert('Invoice created successfully!');
-                        document.getElementById('print_invoice').classList.remove('hidden');
-                    } else {
-                        alert('Failed to create invoice. Please try again.');
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    alert('An error occurred while processing your request. Please try again.');
-                });
-            }
-        });
-
-        
-
-
-
 
     $('#register_form').on("submit",function () {
         var DOMAIN = "http://localhost/inventory";
@@ -570,47 +499,7 @@ $(document).ready(function () {
 //----------------------------ORDER-------------------------
     addNewRow();
 
-    $("#add").click(function(){
-        addNewRow();
-    })
-    function addNewRow(){
-        $.ajax({
-            url : "./inc/process.php",
-            method : "POST",
-            data : {getNewOrderItem:1},
-            success : function(data){
-                $("#invoice_item").append(data);
-                var n = 0;
-                $(".number").each(function(){
-                    $(this).html(++n);
-                })
-            }
-        })
-    };
-
-    $("#remove").click(function(){
-        $("#invoice_item").children("tr:last").remove();
-        calculate(0,0);
-    });
-    $("#invoice_item").delegate(".pid","change",function(){
-        var pid = $(this).val();
-        var tr = $(this).parent().parent();
-        $.ajax({
-            url : "./inc/process.php",
-            method : "POST",
-            dataType : "json",
-            data : {getPriceAndQty:1,id:pid},
-            success : function(data){
-                tr.find(".tqty").val(data["quantity"]);
-                tr.find(".pro_name").val(data["productname"]);
-                tr.find(".qty").val(1);
-                tr.find(".price").val(data["price"]);
-                tr.find(".amt").html( tr.find(".qty").val() * tr.find(".price").val() );
-                calculate(0,0);
-            }
-        })
-    })
-
+    
 
 
     $('#invoice_item').delegate(".qty","keyup",function () {
@@ -673,45 +562,8 @@ $(document).ready(function () {
     });
     /*Order Accepting*/
 
-    $("#order_form").click(function(){
-
-      // Serialize the form data
-      var invoice = $("#get_order_data").serialize();
+    
   
-      // Log the serialized data to inspect it
-      console.log("Form Data Sent:", invoice);
-  
-      // Validation
-      if ($("#cust_name").val() === "") {
-          alert("Please enter customer name");
-      } else if ($("#paid").val() === "") {
-          alert("Please enter paid amount");
-      } else {
-          // Send the data via AJAX
-          $.ajax({
-              url: "./inc/process.php",
-              method: "POST",
-              data: invoice,  // Use the serialized form data here
-              success: function(data) {
-                  if (data < 0) {
-                      alert(data);
-                  } else {
-                      $("#get_order_data").trigger("reset");
-  
-                      // Check if user wants to print the invoice
-                      if (confirm("Do you want to print the invoice?")) {
-                          window.location.href = "./inc/invoice_bill.php?invoice_no=" + data + "&" + invoice;
-                      } else {
-                          alert("Order Completed!");
-                      }
-                  }
-              },
-              error: function(xhr, status, error) {
-                  console.error("AJAX Error:", error);  // Log any AJAX errors for debugging
-              }
-          });
-      }
-  });
   
 
     var table = $('#example').DataTable( {
@@ -738,7 +590,4 @@ $(document).ready(function () {
 
 
 //----------------------------
-
-
-});
 

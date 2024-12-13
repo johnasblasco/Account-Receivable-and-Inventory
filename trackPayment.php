@@ -1,7 +1,43 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Import necessary classes
+use App\classes\Session;
+use App\classes\Manage;
+use App\classes\Database; // Add Database class to connect to DB
+
+// Include header and navbar
 require_once 'templates/header.php';
 require_once 'templates/navbar.php';
-// require_once 'App/classes/Manage.php'; // No need for Manage.php when we're using demo data
+
+// Database connection
+require_once __DIR__ . '/app/classes/Database.php'; // Ensure the path is correct
+
+
+// Database connection settings
+$dsn = 'mysql:host=localhost;dbname=inventory'; // Set your DSN for MySQL
+$username = 'root';
+$password = ''; // Empty string for default MySQL user
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES => false,
+];
+
+// Create a new database connection using PDO
+try {
+    $pdo = new PDO($dsn, $username, $password, $options);
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+    exit;
+}
+
+// Fetch payments from the invoice table
+$query = "SELECT invoice_no, customer_name, order_date AS payment_date, paid AS amount_paid, due FROM invoice";
+$stmt = $pdo->query($query);
+$payments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <div class="container mx-auto mt-6 px-4">
@@ -31,38 +67,6 @@ require_once 'templates/navbar.php';
             </thead>
             <tbody>
                 <?php
-                // Demo data to simulate payments
-                $payments = [
-                    [
-                        'invoice_no' => 'INV001',
-                        'customer_name' => 'John Doe',
-                        'payment_date' => '2024-11-01',
-                        'amount_paid' => 200.00,
-                        'due_amount' => 50.00
-                    ],
-                    [
-                        'invoice_no' => 'INV002',
-                        'customer_name' => 'Jane Smith',
-                        'payment_date' => '2024-11-05',
-                        'amount_paid' => 300.00,
-                        'due_amount' => 0.00
-                    ],
-                    [
-                        'invoice_no' => 'INV003',
-                        'customer_name' => 'Alice Johnson',
-                        'payment_date' => '2024-11-10',
-                        'amount_paid' => 150.00,
-                        'due_amount' => 100.00
-                    ],
-                    [
-                        'invoice_no' => 'INV004',
-                        'customer_name' => 'Bob Lee',
-                        'payment_date' => '2024-11-15',
-                        'amount_paid' => 500.00,
-                        'due_amount' => 200.00
-                    ],
-                ];
-
                 if (count($payments) > 0):
                     $i = 0;
                     foreach ($payments as $payment): ?>
@@ -72,9 +76,9 @@ require_once 'templates/navbar.php';
                             <td class="border px-6 py-4"><?= htmlspecialchars($payment['customer_name']) ?></td>
                             <td class="border px-6 py-4"><?= htmlspecialchars($payment['payment_date']) ?></td>
                             <td class="border px-6 py-4">$<?= number_format($payment['amount_paid'], 2) ?></td>
-                            <td class="border px-6 py-4">$<?= number_format($payment['due_amount'], 2) ?></td>
+                            <td class="border px-6 py-4">$<?= number_format($payment['due'], 2) ?></td>
                             <td class="border px-6 py-4">
-                                <?php if ($payment['due_amount'] == 0): ?>
+                                <?php if ($payment['due'] == 0): ?>
                                     <span class="bg-green-500 text-white px-4 py-2 rounded-full text-xs">Paid</span>
                                 <?php else: ?>
                                     <span class="bg-red-500 text-white px-4 py-2 rounded-full text-xs">Due</span>

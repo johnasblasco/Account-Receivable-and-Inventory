@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userId = $_SESSION['userId']; // Assuming userId is stored in session
 
     // Initialize the Database class (Assuming you have a class for database interaction)
-    require_once 'App/classes/Database.php';
+    
+require_once __DIR__ . '/app/classes/Database.php'; // Ensure the path is correct
     $db = new Database();
 
     // Update user profile in the database

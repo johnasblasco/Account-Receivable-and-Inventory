@@ -271,7 +271,6 @@ if (isset($_POST["update_product"])) {
 }
 //-----------------------------ORDER------------------------------
 
-/// If getting new order items
 // If getting new order items
 if (isset($_POST["getNewOrderItem"])) {
       $obj = new DBoperation();

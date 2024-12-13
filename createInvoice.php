@@ -103,9 +103,9 @@
 
                     <!-- Buttons -->
                     <div class="flex justify-center gap-4 mt-6">
-                        <button id="order_form" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                            Make Invoice
-                        </button>
+                    <button id="order_form" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+    Make Invoice
+</button>
                         <button id="print_invoice" class="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 hidden">
                               Print Invoice
                         </button>

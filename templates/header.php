@@ -2,7 +2,7 @@
 require_once './vendor/autoload.php';
 use App\classes\Session;
 Session::init();
-define("DOMAIN","http://localhost/inventory");
+define("DOMAIN", "http://localhost/inventory");
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,14 +19,19 @@ define("DOMAIN","http://localhost/inventory");
     <link rel="stylesheet" href="css/style.css">
     <title>Barra_Jhomar_Account_Receivable</title>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Load jQuery before other scripts that depend on it -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- Your main.js script (depends on jQuery) -->
+    <script src="js/main.js" defer></script>
+    <script src="js/order.js" defer></script>
+
+
+    <!-- Load DataTables after jQuery -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <!-- Tailwind CSS (consider using PostCSS or CLI in production) -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <script src="js/main.js"></script>
-
-   
 </head>
 <body>
 <div class="overlay"><div class="loader"></div></div>
